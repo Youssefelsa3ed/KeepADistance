@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_activity_test">TestActivity</string>
+    <string name="nav_header_title">أندرويد ستديو</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="menu_home">الرئيسية</string>
+    <string name="pay_roll">راتب الموظف</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="welcome_to_the_task">مرحبا بك في التاسك</string>
+    <string name="title_activity_login">تسجيل الدخول</string>
+    <string name="phone">رقم الجوال</string>
+    <string name="password">كلمة المرور</string>
+    <string name="action_sign_in">تسجيل الدخول</string>
+    <string name="welcome">"مرحبا !"</string>
+    <string name="connection_error">خطأ في الإتصال!</string>
+    <string name="required_field">هذا الحقل مطلوب!</string>
+    <string name="change_language">تغيير اللغة</string>
+    <string name="choose_language">قم باختيار اللغة</string>
+    <string name="arabic">اللغة العربية</string>
+    <string name="english">English</string>
+
+    <!-- Strings for camera settings. -->
+    <string name="pref_category_camera">Camera</string>
+    <string name="pref_title_rear_camera_preview_size">Rear camera preview size</string>
+
+    <!-- Strings for barcode detection settings. -->
+    <string name="pref_category_barcode_detection">Barcode detection</string>
+    <string name="pref_title_barcode_reticle_width">Barcode reticle width</string>
+    <string name="pref_title_barcode_reticle_height">Barcode reticle height</string>
+    <string name="pref_summary_barcode_reticle_width" formatted="false">Relative to the camera view width, ranges from 50% to 95%</string>
+    <string name="pref_summary_barcode_reticle_height" formatted="false">Relative to the camera view height, ranges from 20% to 80%</string>
+    <string name="pref_summary_minimum_barcode_width" formatted="false">Relative to the reticle width, ranges from 20% to 80% (only applicable when barcode size check enabled)</string>
+
+    <string name="pref_title_enable_barcode_size_check">Enable barcode size check</string>
+    <string name="pref_summary_enable_barcode_size_check">Will prompt user to move camera closer if the detected barcode is too small</string>
+    <string name="pref_title_minimum_barcode_width">Minimum barcode width</string>
+    <string name="pref_title_delay_loading_barcode_result">Delay loading barcode result</string>
+    <string name="pref_summary_delay_loading_barcode_result">Will show the loading spinner for 2s</string>
+
+    <string name="prompt_point_at_a_barcode">قم بتوجيه الكاميرا إلى الرمز</string>
+    <string name="prompt_hold_camera_steady">قم بتثبيت الكاميرا للحظه</string>
+    <string name="prompt_move_camera_closer">اقترب قليلاً</string>
+    <string name="prompt_searching">جارى البحث…</string>
+    <string name="product_search_button">Search object</string>
+</resources>

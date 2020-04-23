@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "681596029438",
+    "firebase_url": "https://homathonapp.firebaseio.com",
+    "project_id": "homathonapp",
+    "storage_bucket": "homathonapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681596029438:android:28e9d37ba93064463f18af",
+        "android_client_info": {
+          "package_name": "com.homathon.tdudes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681596029438-6q5vauict348hp8796bejat43887fai9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKIOGh-VPXhR7L3kBAgec_k7jQhP3prJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681596029438-6q5vauict348hp8796bejat43887fai9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
