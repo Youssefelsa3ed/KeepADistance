@@ -9,8 +9,9 @@ import android.os.CountDownTimer;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.homathon.tdudes.R;
+import com.homathon.tdudes.ui.hospital.main.HospitalHomeActivity;
 import com.homathon.tdudes.ui.login.LoginActivity;
-import com.homathon.tdudes.ui.main.MainActivity;
+import com.homathon.tdudes.ui.infected.main.MainActivity;
 import com.homathon.tdudes.utills.SharedPrefManager;
 
 import java.util.Locale;
@@ -41,8 +42,12 @@ public class SplashActivity extends AppCompatActivity {
 
             public void onFinish() {
                 SharedPrefManager sharedPrefManager = new SharedPrefManager(SplashActivity.this);
-                if (sharedPrefManager.getLoginStatus())
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                if (sharedPrefManager.getLoginStatus()){
+                    if(sharedPrefManager.getUserData().getPhone().endsWith("0"))
+                        startActivity(new Intent(SplashActivity.this, HospitalHomeActivity.class));
+                    else
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                }
                 else
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 finish();

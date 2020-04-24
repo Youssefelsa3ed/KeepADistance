@@ -44,4 +44,8 @@
     <string name="prompt_move_camera_closer">اقترب قليلاً</string>
     <string name="prompt_searching">جارى البحث…</string>
     <string name="product_search_button">Search object</string>
+    <string name="qr_code">QR رمز</string>
+    <string name="scan_qr_code">مسح رمز QR</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="quarantine_hospital">مستشفى الحجر الصحي</string>
 </resources>

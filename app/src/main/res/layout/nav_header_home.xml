@@ -24,13 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/mid_margin"
+        android:text="@string/quarantine_hospital"
         android:textAlignment="viewStart"
-        android:id="@+id/txtUserName"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtUserEmail"/>
 
 </LinearLayout>

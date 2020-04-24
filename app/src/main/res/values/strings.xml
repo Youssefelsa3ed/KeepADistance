@@ -57,4 +57,9 @@
     <string name="prompt_searching">Searching&#8230;</string>
     <string name="title_activity_maps" translatable="false">Map</string>
     <string name="product_search_button">Search object</string>
+
+    <string name="qr_code">QR code</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="notifications">Notifications</string>
+    <string name="quarantine_hospital">Quarantine hospital</string>
 </resources>

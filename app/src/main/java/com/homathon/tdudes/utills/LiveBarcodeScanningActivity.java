@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.common.internal.Objects;
 import com.google.android.material.chip.Chip;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.homathon.tdudes.R;
 import com.homathon.tdudes.utills.barcodedetection.BarcodeField;
 import com.homathon.tdudes.utills.barcodedetection.BarcodeProcessor;
@@ -27,6 +29,7 @@ import com.homathon.tdudes.utills.settings.SettingsActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /** Demonstrates the barcode scanning workflow using camera preview. */
 public class LiveBarcodeScanningActivity extends AppCompatActivity implements View.OnClickListener {
@@ -197,13 +200,18 @@ public class LiveBarcodeScanningActivity extends AppCompatActivity implements Vi
                 this,
                 barcode -> {
                     if (barcode != null) {
-                        /*ArrayList<BarcodeField> barcodeFieldList = new ArrayList<>();
+                        ArrayList<BarcodeField> barcodeFieldList = new ArrayList<>();
                         barcodeFieldList.add(new BarcodeField("Raw Value", barcode.getRawValue()));
-                        BarcodeResultFragment.show(getSupportFragmentManager(), barcodeFieldList);*/
-                        Intent intent = new Intent();
+                        BarcodeResultFragment.show(getSupportFragmentManager(), barcodeFieldList);
+                        /*Intent intent = new Intent();
                         intent.putExtra("userId", barcode.getRawValue());
                         setResult(Activity.RESULT_OK, intent);
-                        finish();
+                        finish();*/
+                        // Write a message to the database
+                        SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference("message");
+                        myRef.child(barcodeFieldList.get(0).toString()).setValue("Hello world");
                     }
                 });
     }

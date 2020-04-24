@@ -19,6 +19,8 @@ package com.homathon.tdudes.utills.barcodedetection;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 /** Information about a barcode field. */
 public class BarcodeField implements Parcelable {
 
@@ -57,5 +59,11 @@ public class BarcodeField implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(label);
         dest.writeString(value);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return value;
     }
 }

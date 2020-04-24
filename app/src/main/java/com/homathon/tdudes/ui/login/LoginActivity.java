@@ -8,8 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.homathon.tdudes.R;
+import com.homathon.tdudes.data.User;
 import com.homathon.tdudes.databinding.ActivityLoginBinding;
-import com.homathon.tdudes.ui.main.MainActivity;
+import com.homathon.tdudes.ui.hospital.main.HospitalHomeActivity;
+import com.homathon.tdudes.ui.infected.main.MainActivity;
+import com.homathon.tdudes.utills.SharedPrefManager;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private ActivityLoginBinding loginBinding;
@@ -35,7 +38,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         finish();
                     }
                 }.start();*/
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
+                User user = new User();
+                user.setPhone(loginBinding.txtMobileNumber.getText().toString());
+                if(loginBinding.txtMobileNumber.getText().toString().endsWith("0")){
+                    sharedPrefManager.setUserData(user);
+                    startActivity(new Intent(LoginActivity.this, HospitalHomeActivity.class));
+                }
+                else if(loginBinding.txtMobileNumber.getText().toString().endsWith("1")) {
+                    user.setName("John Doe");
+                    user.setEmail("john_doe@doee.com");
+                    sharedPrefManager.setUserData(user);
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
+                else {
+                    user.setName("Jane Hue");
+                    user.setEmail("jane_hue@doee.com");
+                    sharedPrefManager.setUserData(user);
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
+
                 finish();
             }
         }

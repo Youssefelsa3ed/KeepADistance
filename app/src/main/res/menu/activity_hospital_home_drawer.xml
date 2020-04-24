@@ -6,13 +6,9 @@
         android:icon="@drawable/ic_menu_home"
         android:title="@string/menu_home" />
     <item
-        android:id="@+id/nav_notifications"
-        android:icon="@drawable/ic_bell"
-        android:title="@string/notifications" />
-    <item
-        android:id="@+id/nav_qr"
-        android:icon="@drawable/ic_qr_code"
-        android:title="@string/qr_code" />
+        android:id="@+id/nav_scan"
+        android:icon="@drawable/ic_qr_scan"
+        android:title="@string/scan_qr_code" />
 
     <item
         android:id="@+id/nav_logout"
