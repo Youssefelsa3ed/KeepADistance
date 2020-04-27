@@ -93,4 +93,8 @@
     <string name="geofence_transition_notification_text" translatable="false">
         Click notification to return to app
     </string>
+
+    <string name="pleaseOpenGPS">Open GPS</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>

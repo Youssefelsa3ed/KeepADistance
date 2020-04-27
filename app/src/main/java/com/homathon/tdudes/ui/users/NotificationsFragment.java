@@ -1,4 +1,4 @@
-package com.homathon.tdudes.ui.infected;
+package com.homathon.tdudes.ui.users;
 
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.homathon.tdudes.ui.infected.main;
+package com.homathon.tdudes.ui.users.main;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -103,93 +103,86 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         userName.setText(userData.getName());
         userEmail.setText(userData.getEmail());
 
-        if(!userData.getPhone().endsWith("0")){
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference users = database.getReference("users");
-            DatabaseReference locations = database.getReference("locations");
-            locations.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot item : dataSnapshot.getChildren()){
-                        if(Objects.equals(item.getKey(), userData.getId()))
-                            return;
-                        for(DataSnapshot subItem : item.getChildren()){
-                            LocationObject locationObject = subItem.getValue(LocationObject.class);
-                            if(locationObject == null || !locationObject.infected)
-                                continue;
-                            geofenceList.add(new Geofence.Builder()
-                                    .setRequestId(locationObject.title)
-                                    .setCircularRegion(locationObject.latitude, locationObject.longitude, 40)
-                                    .setExpirationDuration(30000)
-                                    .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
-                                    .build());
-                        }
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference users = database.getReference("users");
+        DatabaseReference locations = database.getReference("locations");
+        locations.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()){
+                    if(Objects.equals(item.getKey(), userData.getId()))
+                        return;
+                    for(DataSnapshot subItem : item.getChildren()){
+                        LocationObject locationObject = subItem.getValue(LocationObject.class);
+                        if(locationObject == null || !locationObject.infected)
+                            continue;
+                        geofenceList.add(new Geofence.Builder()
+                                .setRequestId(locationObject.title)
+                                .setCircularRegion(locationObject.latitude, locationObject.longitude, 40)
+                                .setExpirationDuration(30000)
+                                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+                                .build());
                     }
-                    if(geofenceList.size() > 0)
-                        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent());
                 }
+                if(geofenceList.size() > 0)
+                    geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent());
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+        users.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if(!Objects.equals(dataSnapshot.getKey(), userData.getId())){
+                    PushNotification.pushOrderNotification(MainActivity.this, "New infection", dataSnapshot.getValue(String.class) + " was reported as infected");
                 }
-            });
-            users.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                else {
                     SharedPrefManager sharedPrefManager = new SharedPrefManager(MainActivity.this);
-                    if(!Objects.equals(dataSnapshot.getKey(), sharedPrefManager.getUserData().getId())){
-                        locations.child(dataSnapshot.getKey()).getRef().addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot item : dataSnapshot.getChildren()){
-                                    if(!Objects.equals(item.child("infected").getValue(), true))
-                                        item.getRef().child("infected").setValue(true);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-                        PushNotification.pushOrderNotification(MainActivity.this, "New infection", dataSnapshot.getValue(String.class) + " was reported as infected");
-                    }
+                    userData.setInfected(true);
+                    sharedPrefManager.setUserData(userData);
                 }
+            }
 
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                if(Objects.equals(dataSnapshot.getKey(), userData.getId())){
+                    SharedPrefManager sharedPrefManager = new SharedPrefManager(MainActivity.this);
+                    userData.setInfected(false);
+                    sharedPrefManager.setUserData(userData);
                 }
+            }
 
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                }
+            }
 
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-
-            });
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-            geofencingClient = LocationServices.getGeofencingClient(this);
-            createLocationRequest();
-            locationUpdateViewModel.getLocationListLiveData().observe(this, updatedLocations -> {
-                Log.d(TAG, String.format("Got %s locations", updatedLocations.size()));
-                if(updatedLocations.size() > 0){
-                    String key = locations.child(userData.getId()).push().getKey();
-                    Map<String, Object> childUpdates = new HashMap<>();
-                    childUpdates.put(userData.getId() + "/" + key, new LocationObject(updatedLocations.get(0).component2(), updatedLocations.get(0).component2(), this, false).toMap());
-                    locations.updateChildren(childUpdates);
-                }
-            });
-        }
+        });
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        geofencingClient = LocationServices.getGeofencingClient(this);
+        createLocationRequest();
+        locationUpdateViewModel.getLocationListLiveData().observe(this, updatedLocations -> {
+            Log.d(TAG, String.format("Got %s locations", updatedLocations.size()));
+            if(updatedLocations.size() > 0){
+                String key = userData.getName() + String.valueOf(updatedLocations.get(0).getLatitude()).replace(".","")
+                        + String.valueOf(updatedLocations.get(0).getLongitude()).replace(".","");
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put(key, new LocationObject(updatedLocations.get(0).getLatitude(), updatedLocations.get(0).getLongitude(), this, userData.isInfected()).toMap());
+                locations.child(userData.getId()).updateChildren(childUpdates);
+            }
+        });
     }
 
     @Override

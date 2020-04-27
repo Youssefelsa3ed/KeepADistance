@@ -1,4 +1,4 @@
-package com.homathon.tdudes.ui.infected.qrCode;
+package com.homathon.tdudes.ui.users.qrCode;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,15 +11,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.homathon.tdudes.R;
 import com.homathon.tdudes.databinding.FragmentUserQRBinding;
-import com.homathon.tdudes.ui.infected.main.MainActivity;
 import com.homathon.tdudes.utills.SharedPrefManager;
 
 /**

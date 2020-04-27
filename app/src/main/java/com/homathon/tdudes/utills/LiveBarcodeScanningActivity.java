@@ -9,13 +9,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.common.internal.Objects;
 import com.google.android.material.chip.Chip;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.homathon.tdudes.R;
 import com.homathon.tdudes.utills.barcodedetection.BarcodeField;
 import com.homathon.tdudes.utills.barcodedetection.BarcodeProcessor;
@@ -201,7 +205,7 @@ public class LiveBarcodeScanningActivity extends AppCompatActivity implements Vi
                 barcode -> {
                     if (barcode != null) {
                         ArrayList<BarcodeField> barcodeFieldList = new ArrayList<>();
-                        barcodeFieldList.add(new BarcodeField("Raw Value", barcode.getRawValue()));
+                        barcodeFieldList.add(new BarcodeField("Raw Value", "User: '" + barcode.getRawValue().split(" ")[1] + "' was reported as an infected"));
                         BarcodeResultFragment.show(getSupportFragmentManager(), barcodeFieldList);
                         /*Intent intent = new Intent();
                         intent.putExtra("userId", barcode.getRawValue());
@@ -211,6 +215,21 @@ public class LiveBarcodeScanningActivity extends AppCompatActivity implements Vi
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference myRef = database.getReference("users");
                         myRef.child(barcode.getRawValue().split(" ")[0]).setValue(barcode.getRawValue().split(" ")[1]);
+                        DatabaseReference userLocation = database.getReference("locations").child(barcode.getRawValue().split(" ")[0]).getRef();
+                        userLocation.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot item : dataSnapshot.getChildren()){
+                                    if(!java.util.Objects.equals(item.child("infected").getValue(), true))
+                                        item.getRef().child("infected").setValue(true);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 });
     }

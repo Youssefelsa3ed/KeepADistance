@@ -17,7 +17,7 @@ import com.homathon.tdudes.R;
 import com.homathon.tdudes.data.User;
 import com.homathon.tdudes.databinding.ActivityLoginBinding;
 import com.homathon.tdudes.ui.hospital.main.HospitalHomeActivity;
-import com.homathon.tdudes.ui.infected.main.MainActivity;
+import com.homathon.tdudes.ui.users.main.MainActivity;
 import com.homathon.tdudes.ui.register.SignUpActivity;
 import com.homathon.tdudes.utills.SharedPrefManager;
 

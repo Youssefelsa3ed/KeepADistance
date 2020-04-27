@@ -34,7 +34,7 @@ import androidx.preference.PreferenceManager;
 
 
 import com.homathon.tdudes.R;
-import com.homathon.tdudes.ui.infected.main.MainActivity;
+import com.homathon.tdudes.ui.users.main.MainActivity;
 import com.homathon.tdudes.utills.camera.CameraSizePair;
 
 import java.io.IOException;

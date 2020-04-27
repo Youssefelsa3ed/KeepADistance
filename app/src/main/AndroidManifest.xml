@@ -56,7 +56,7 @@
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".ui.infected.main.MainActivity"
+            android:name=".ui.users.main.MainActivity"
             android:label="@string/title_activity_test" />
         <activity android:name=".utills.LiveBarcodeScanningActivity" />
         <activity android:name=".utills.settings.SettingsActivity" />

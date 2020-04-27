@@ -18,7 +18,7 @@ import android.util.Log;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.homathon.tdudes.R;
-import com.homathon.tdudes.ui.infected.main.MainActivity;
+import com.homathon.tdudes.ui.users.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;

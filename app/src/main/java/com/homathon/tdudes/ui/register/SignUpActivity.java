@@ -19,7 +19,7 @@ import com.homathon.tdudes.R;
 import com.homathon.tdudes.data.User;
 import com.homathon.tdudes.databinding.ActivitySignUpBinding;
 import com.homathon.tdudes.ui.hospital.main.HospitalHomeActivity;
-import com.homathon.tdudes.ui.infected.main.MainActivity;
+import com.homathon.tdudes.ui.users.main.MainActivity;
 import com.homathon.tdudes.utills.SharedPrefManager;
 
 import java.util.Objects;

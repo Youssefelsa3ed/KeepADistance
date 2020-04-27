@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:context=".ui.infected.NotificationsFragment"
+    tools:context=".ui.users.NotificationsFragment"
     tools:listitem="@layout/notification_item_view" />

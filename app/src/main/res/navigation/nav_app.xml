@@ -12,12 +12,12 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_qr"
-        android:name="com.homathon.tdudes.ui.infected.qrCode.UserQRFragment"
+        android:name="com.homathon.tdudes.ui.users.qrCode.UserQRFragment"
         android:label="QR Code"
         tools:layout="@layout/fragment_user_q_r"/>
     <fragment
         android:id="@+id/nav_notifications"
-        android:name="com.homathon.tdudes.ui.infected.NotificationsFragment"
+        android:name="com.homathon.tdudes.ui.users.NotificationsFragment"
         android:label="@string/notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

@@ -7,6 +7,7 @@ public class User {
     private String name;
     private String email;
     private String id;
+    private boolean infected;
 
     public String getEmail() {
         return email;
@@ -38,6 +39,14 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean isInfected() {
+        return infected;
+    }
+
+    public void setInfected(boolean infected) {
+        this.infected = infected;
     }
 
     @NonNull
