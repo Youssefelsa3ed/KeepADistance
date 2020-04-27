@@ -48,4 +48,10 @@
     <string name="scan_qr_code">مسح رمز QR</string>
     <string name="notifications">الإشعارات</string>
     <string name="quarantine_hospital">مستشفى الحجر الصحي</string>
+    <string name="warning_message">You are near a location that was reported was an infected case before\nTake care</string>
+    <string name="unknown_location">Unknown location</string>
+    <string name="not_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email">Email</string>
+    <string name="user_name">User name</string>
 </resources>

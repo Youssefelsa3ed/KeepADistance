@@ -62,4 +62,35 @@
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="notifications">Notifications</string>
     <string name="quarantine_hospital">Quarantine hospital</string>
+    <string name="warning_message">You are near a location that was reported was an infected case before\nTake care</string>
+    <string name="unknown_location">Unknown location</string>
+    <string name="not_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email">Email</string>
+    <string name="user_name">User name</string>
+
+
+
+    <!-- Error strings -->
+    <string name="geofence_not_available" translatable="false">Geofence service is not available now</string>
+    <string name="geofence_too_many_geofences" translatable="false">Your app has registered too many geofences</string>
+    <string name="geofence_too_many_pending_intents" translatable="false">
+        You have provided too many PendingIntents to the addGeofences() call
+    </string>
+    <string name="unknown_geofence_error" translatable="false">
+        Unknown error: the Geofence service is not available now
+    </string>
+    <string name="geofence_transition_invalid_type" translatable="false">
+        Geofence transition error: invalid transition type %1$d
+    </string>
+
+
+    <!-- Transition type strings -->
+    <string name="geofence_transition_entered" translatable="false">Entered</string>
+    <string name="geofence_transition_exited" translatable="false">Exited</string>
+    <string name="unknown_geofence_transition" translatable="false">Unknown Transition</string>
+
+    <string name="geofence_transition_notification_text" translatable="false">
+        Click notification to return to app
+    </string>
 </resources>

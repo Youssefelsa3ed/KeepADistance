@@ -1,9 +1,12 @@
 package com.homathon.tdudes.data;
 
+import androidx.annotation.NonNull;
+
 public class User {
     private String phone;
     private String name;
     private String email;
+    private String id;
 
     public String getEmail() {
         return email;
@@ -27,5 +30,19 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return id + " " + name;
     }
 }

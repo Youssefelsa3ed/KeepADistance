@@ -46,7 +46,7 @@ public class UserQRFragment extends Fragment {
         QRCodeWriter writer = new QRCodeWriter();
         try {
             SharedPrefManager sharedPrefManager = new SharedPrefManager(view.getContext());
-            BitMatrix bitMatrix = writer.encode(sharedPrefManager.getUserData().getPhone(), BarcodeFormat.QR_CODE, 512, 512);
+            BitMatrix bitMatrix = writer.encode(sharedPrefManager.getUserData().toString(), BarcodeFormat.QR_CODE, 512, 512);
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
             Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);

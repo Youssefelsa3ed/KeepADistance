@@ -208,10 +208,9 @@ public class LiveBarcodeScanningActivity extends AppCompatActivity implements Vi
                         setResult(Activity.RESULT_OK, intent);
                         finish();*/
                         // Write a message to the database
-                        SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = database.getReference("message");
-                        myRef.child(barcodeFieldList.get(0).toString()).setValue("Hello world");
+                        DatabaseReference myRef = database.getReference("users");
+                        myRef.child(barcode.getRawValue().split(" ")[0]).setValue(barcode.getRawValue().split(" ")[1]);
                     }
                 });
     }
