@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">TheTask</string>
+    <string name="app_name" translatable="false">Keep Distance</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
@@ -70,7 +70,6 @@
     <string name="user_name">User name</string>
 
 
-
     <!-- Error strings -->
     <string name="geofence_not_available" translatable="false">Geofence service is not available now</string>
     <string name="geofence_too_many_geofences" translatable="false">Your app has registered too many geofences</string>
@@ -97,4 +96,5 @@
     <string name="pleaseOpenGPS">Open GPS</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+
 </resources>

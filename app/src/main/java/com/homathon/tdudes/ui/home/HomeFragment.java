@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
 
     private BitmapDescriptor getMarkerIconFromDrawable() {
         Canvas canvas = new Canvas();
-        Drawable drawable = getResources().getDrawable(R.drawable.ic_covid_19);
+        Drawable drawable = getResources().getDrawable(R.drawable.map_infection);
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         canvas.setBitmap(bitmap);
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());

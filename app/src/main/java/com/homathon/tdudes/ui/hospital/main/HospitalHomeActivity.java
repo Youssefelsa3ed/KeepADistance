@@ -14,18 +14,22 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.navigation.NavigationView;
 import com.homathon.tdudes.R;
+import com.homathon.tdudes.databinding.ActivityHospitalHomeBinding;
 import com.homathon.tdudes.ui.splash.SplashActivity;
 import com.homathon.tdudes.utills.ParentClass;
 import com.homathon.tdudes.utills.SharedPrefManager;
@@ -35,26 +39,70 @@ import java.util.Objects;
 
 public class HospitalHomeActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
-    private AppBarConfiguration mAppBarConfiguration;
+    private ActivityHospitalHomeBinding binding;
+    private BottomSheetBehavior<RelativeLayout> bottomSheetBehavior;
+    private RelativeLayout relativeLayout;
+    //private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;
     private boolean checked;
+    CurrentFragment fragment;
+
+    enum CurrentFragment{
+        Home,
+        Menu,
+        Profile
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hospital_home);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_hospital_home);
+        relativeLayout = binding.bottom.bottomLayout;
+        bottomSheetBehavior = BottomSheetBehavior.from(relativeLayout);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        fragment = CurrentFragment.Home;
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        /*DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);*/
         navController = Navigation.findNavController(this, R.id.nav_hospital_home_fragment);
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home).setDrawerLayout(drawer).build();
+        /*mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home).setDrawerLayout(drawer).build();
         NavigationUI.setupWithNavController(navigationView, navController);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 
         MenuItem logout = navigationView.getMenu().findItem(R.id.nav_logout);
-        logout.setOnMenuItemClickListener(this);
+        logout.setOnMenuItemClickListener(this);*/
+        binding.bottom.home.setOnClickListener(v -> {
+            if(fragment != CurrentFragment.Home){
+                fragment = CurrentFragment.Home;
+                binding.bottom.home.setCardBackgroundColor(getColorStateList(R.color.colorPrimary));
+                binding.bottom.menu.setImageTintList(getColorStateList(R.color.colorGray));
+                binding.bottom.profile.setImageTintList(getColorStateList(R.color.colorGray));
+                navController.navigate(R.id.action_to_nav_home);
+            }
+        });
+        binding.bottom.menu.setOnClickListener(v -> {
+            if(fragment != CurrentFragment.Menu){
+                fragment = CurrentFragment.Menu;
+                binding.bottom.menu.setImageTintList(getColorStateList(R.color.colorPrimary));
+                binding.bottom.home.setCardBackgroundColor(getColorStateList(R.color.colorGray));
+                binding.bottom.profile.setImageTintList(getColorStateList(R.color.colorGray));
+                navController.navigate(R.id.action_to_hospital_menu);
+            }
+        });
+        binding.bottom.profile.setOnClickListener(v -> {
+            /*if(fragment != CurrentFragment.Profile){
+                fragment = CurrentFragment.Profile;
+                binding.bottom.profile.setBackgroundColor(getColor(R.color.colorPrimary));
+                binding.bottom.home.setCardBackgroundColor(getColorStateList(R.color.colorGray));
+                binding.bottom.menu.setBackgroundColor(getColor(R.color.colorGray));
+                navController.navigate(R.id.action_to_nav_scan);
+            }*/
+        });
     }
 
     @Override
@@ -67,11 +115,11 @@ public class HospitalHomeActivity extends AppCompatActivity implements MenuItem.
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
+    }*/
 
     public void logoutUser() {
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);

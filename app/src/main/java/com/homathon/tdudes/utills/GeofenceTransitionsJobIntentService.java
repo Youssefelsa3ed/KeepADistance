@@ -148,11 +148,11 @@ public class GeofenceTransitionsJobIntentService extends JobIntentService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
 
         // Define the notification settings.
-        builder.setSmallIcon(R.drawable.ic_launcher_foreground)
+        builder.setSmallIcon(R.mipmap.ic_launcher)
                 // In a real app, you may want to use a library like Volley
                 // to decode the Bitmap.
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                        R.drawable.ic_launcher_foreground))
+                        R.mipmap.ic_launcher))
                 .setColor(Color.RED)
                 .setContentTitle(notificationDetails)
                 .setContentText(getString(R.string.geofence_transition_notification_text))

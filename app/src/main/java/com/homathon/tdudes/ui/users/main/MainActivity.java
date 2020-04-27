@@ -17,19 +17,17 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
@@ -37,7 +35,7 @@ import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -47,6 +45,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.homathon.tdudes.R;
 import com.homathon.tdudes.data.User;
+import com.homathon.tdudes.databinding.ActivityMainBinding;
 import com.homathon.tdudes.ui.splash.SplashActivity;
 import com.homathon.tdudes.utills.GeofenceBroadcastReceiver;
 import com.homathon.tdudes.utills.LocationObject;
@@ -66,7 +65,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
-    private AppBarConfiguration mAppBarConfiguration;
+    //private AppBarConfiguration mAppBarConfiguration;
+    private ActivityMainBinding binding;
     private NavController navController;
     private boolean checked;
     private static final String TAG = "MainActivity";
@@ -77,31 +77,73 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     private List<Geofence> geofenceList;
     private PendingIntent geofencePendingIntent;
     private LocationUpdateViewModel locationUpdateViewModel;
+    private BottomSheetBehavior<RelativeLayout> bottomSheetBehavior;
+    private RelativeLayout relativeLayout;
     private User userData;
+    CurrentFragment fragment;
+
+    enum CurrentFragment{
+        Home,
+        Menu,
+        Profile
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         locationUpdateViewModel = new ViewModelProvider(this).get(LocationUpdateViewModel.class);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        relativeLayout = binding.bottom.bottomLayout;
+        bottomSheetBehavior = BottomSheetBehavior.from(relativeLayout);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         geofenceList = new ArrayList<>();
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        //DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        //NavigationView navigationView = findViewById(R.id.nav_view);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home).setDrawerLayout(drawer).build();
-        NavigationUI.setupWithNavController(navigationView, navController);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        //mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home).setDrawerLayout(drawer).build();
+        //NavigationUI.setupWithNavController(navigationView, navController);
+        /*NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);*/
 
-        MenuItem logout = navigationView.getMenu().findItem(R.id.nav_logout);
+        /*MenuItem logout = navigationView.getMenu().findItem(R.id.nav_logout);
         logout.setOnMenuItemClickListener(this);
         TextView userName = navigationView.getHeaderView(0).findViewById(R.id.txtUserName);
-        TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.txtUserEmail);
+        TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.txtUserEmail);*/
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
         userData = sharedPrefManager.getUserData();
-        userName.setText(userData.getName());
-        userEmail.setText(userData.getEmail());
+        /*userName.setText(userData.getName());
+        userEmail.setText(userData.getEmail());*/
+        binding.bottom.home.setOnClickListener(v -> {
+            if(fragment != CurrentFragment.Home){
+                fragment = CurrentFragment.Home;
+                binding.bottom.home.setCardBackgroundColor(getColorStateList(R.color.colorPrimary));
+                binding.bottom.menu.setImageTintList(getColorStateList(R.color.colorGray));
+                binding.bottom.profile.setImageTintList(getColorStateList(R.color.colorGray));
+                navController.navigate(R.id.action_to_nav_home);
+            }
+        });
+        binding.bottom.menu.setOnClickListener(v -> {
+            if(fragment != CurrentFragment.Menu){
+                fragment = CurrentFragment.Menu;
+                binding.bottom.menu.setImageTintList(getColorStateList(R.color.colorPrimary));
+                binding.bottom.home.setCardBackgroundColor(getColorStateList(R.color.colorGray));
+                binding.bottom.profile.setImageTintList(getColorStateList(R.color.colorGray));
+                navController.navigate(R.id.action_to_user_menu);
+            }
+        });
+        binding.bottom.profile.setOnClickListener(v -> {
+            /*Toast.makeText(this, "openProfile", Toast.LENGTH_SHORT).show();
+            if(fragment != CurrentFragment.Profile){
+                fragment = CurrentFragment.Profile;
+                binding.bottom.profile.setBackgroundColor(getColor(R.color.colorPrimary));
+                binding.bottom.home.setCardBackgroundColor(getColorStateList(R.color.colorGray));
+                binding.bottom.menu.setBackgroundColor(getColor(R.color.colorGray));
+            }*/
+        });
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference users = database.getReference("users");
@@ -195,11 +237,11 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
+    }*/
 
     public void logoutUser() {
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);

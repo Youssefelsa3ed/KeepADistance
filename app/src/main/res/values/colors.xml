@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="transparent">#00000000</color>
-    <color name="colorPrimary">#5870DF</color>
-    <color name="colorPrimaryDark">#3F51B5</color>
+    <color name="colorPrimary">#BF1E2E</color>
+    <color name="colorPrimaryDark">#B11323</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBabyBlue">#D7F3F6</color>
@@ -17,4 +17,5 @@
     <color name="barcode_field_box_stroke">#757575</color>
     <color name="colorBlack">#000</color>
     <color name="dark">#9A000000</color>
+    <color name="colorGray">#929FB3</color>
 </resources>

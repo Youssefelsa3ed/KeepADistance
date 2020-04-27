@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="false"
+        android:id="@+id/bottomLayout"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@android:color/transparent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/home"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="24dp"
+            app:cardCornerRadius="30dp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:translationZ="3dp">
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:tint="@color/colorWhite"
+                android:src="@drawable/ic_menu_home"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/very_rounded_shape"
+            android:backgroundTint="@color/colorWhite">
+            <ImageView
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/menu"
+                android:tint="@color/colorGray"
+                android:src="@drawable/ic_menu"/>
+
+            <ImageView
+                android:layout_marginVertical="10dp"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/profile"
+                android:tint="@color/colorGray"
+                android:src="@drawable/ic_user_icon"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </RelativeLayout>
+</layout>

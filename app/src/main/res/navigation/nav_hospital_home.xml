@@ -5,6 +5,17 @@
     android:id="@+id/nav_hospital_home"
     app:startDestination="@id/nav_home">
 
+    <action android:id="@+id/action_to_nav_home"
+        app:destination="@id/nav_home"/>
+
+
+    <action android:id="@+id/action_to_nav_scan"
+        app:destination="@id/nav_scan"/>
+
+
+    <action android:id="@+id/action_to_hospital_menu"
+        app:destination="@id/hospitalMenuFragment"/>
+
     <fragment
         android:id="@+id/nav_home"
         android:name="com.homathon.tdudes.ui.home.HomeFragment"
@@ -15,4 +26,9 @@
         android:name="com.homathon.tdudes.ui.hospital.scan.ScanQRFragment"
         android:label="Scan QR"
         tools:layout="@layout/fragment_scan_q_r"/>
+    <fragment
+        android:id="@+id/hospitalMenuFragment"
+        android:name="com.homathon.tdudes.ui.hospital.HospitalMenuFragment"
+        android:label="HospitalMenuFragment"
+        tools:layout="@layout/fragment_hospital_menu"/>
 </navigation>
